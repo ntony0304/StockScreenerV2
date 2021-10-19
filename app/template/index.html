@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>This is my homepage</h1>
+    <h1>this is my slideshow</h1>
+    <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleSlidesOnly">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img alt="..." class="d-block w-100" src="...">
+            </div>
+            <div class="carousel-item">
+                <img alt="..." class="d-block w-100" src="...">
+            </div>
+            <div class="carousel-item">
+                <img alt="..." class="d-block w-100" src="...">
+            </div>
+        </div>
+    </div>
+    {% if user.name == "" %}
+    <h2>default name</h2>
+    {% else %}
+    <h2>{{user.name}}</h2>
+    {% endif %}
+    <h2> {{user.username}} </h2>
+{% endblock %}
