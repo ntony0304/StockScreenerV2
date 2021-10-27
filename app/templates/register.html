@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>registration here</h1>
+    <form action="" method="post" novalidate>
+        {{form.hidden_tag()}}
+      <p>
+        {{form.user.label}}       <br>
+          {{form.user(size=32)}}
+      </p>
+      <p>
+         {{form.password.label}}
+          <br>
+          {{form.password(size=32)}}
+      </p>
+          <p>
+         {{form.confirm.label}}
+          <br>
+          {{form.confirm(size=32)}}
+      </p>
+          <p>
+         {{form.email.label}}
+          <br>
+          {{form.email(size=32)}}
+      </p>
+        </p>
+          <p>
+         {{form.contact_num.label}}
+          <br>
+          {{form.contact_num(size=32)}}
+      </p>
+
+      <p>
+          {{form.register_btn()}}
+      </p>
+    </form>
+
+{% endblock %}

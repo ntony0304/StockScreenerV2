@@ -4,13 +4,9 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
+from app import app
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    app.run(host='127.0.0.1', port='5000', debug=False)
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
