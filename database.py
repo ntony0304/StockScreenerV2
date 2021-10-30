@@ -1,12 +1,13 @@
 '''sqlite database'''
 import sqlite3
 import traceback
-
+import os
 
 class Database():
     def __init__(self, setting):
         self.db_setting = setting # copy all the attributes inside setting and assign to db_setting
         self.connection = sqlite3.connect(self.db_setting.database_file_location)
+
 
     def create_account_table(self):
         cur = self.connection.cursor()
@@ -18,6 +19,28 @@ class Database():
             self.connection.close()
         except:  # if the table exist just skip
             pass
+    def create_order_table(self):
+        cur = self.connection.cursor()
+        try:
+            cur.execute('''CREATE TABLE orders (
+                      username TEXT PRIMARY KEY, password TEXT,	email TEXT,	account_type TEXT,	contact_no INT)''')  # create table
+            # Stock*',               'Open',     'High',     'Low',     'Last*',      Vol*
+            self.connection.commit()  # apply the changes to the database
+            self.connection.close()
+        except:  # if the table exist just skip
+            pass
+    def create_stock_table(self):
+        cur = self.connection.cursor()
+        try:#QTRLY EPS DATE	TICKER	STOCK CODE	NAME	ST TREND %	LT TREND %	PRICE	VOLUME	TURNOVER	MAIN INDUSTRY
+            cur.execute('''CREATE TABLE stocks (
+                            date DATE, ticker INT PRIMARY KEY, stock_code TEXT UNIQUE, stock_name TEXT, st_trend_per FLOAT, lt_trend_per FLOAT, 
+                            price FLOAT, volume INT, turnover INT, industry TEXT)''')  # create table
+            # Stock*',               'Open',     'High',     'Low',     'Last*',      Vol*
+            self.connection.commit()  # apply the changes to the database
+            self.connection.close()
+        except:  # if the table exist just skip
+            pass
+
     def insert_account_data(self, username=None, password=None,email=None, account_type = "user", contact_num = None):
         conn = self.database_connection()
         cur = conn.cursor()
@@ -151,15 +174,15 @@ class Database():
         except:
             pass
         return cur.fetchmany(amount)
+# #
+# from config import Setting
+# setting = Setting()
+# db = Database(setting)
+# db.create_account_table()
+# db.create_stock_table()
 #
-from config import Setting
-setting = Setting()
-db = Database(setting)
-db.create_account_table()
-db.create_stock_table()
-
-#insert account data for testing
-#db.insert_account_data("acc1", "acc1Pass", "acc1@gmail.com","user", 1234556)
-#db.edit_account_type("acc1","premium")
-all_account = db.retrieve_accounts()
-print(all_account)
+# #insert account data for testing
+# #db.insert_account_data("acc1", "acc1Pass", "acc1@gmail.com","user", 1234556)
+# #db.edit_account_type("acc1","premium")
+# all_account = db.retrieve_accounts()
+# print(all_account)

@@ -45,6 +45,28 @@ def scrape_stock_data():
 
         sleep(20)
 
+def wraper_for_scraping():
+    from browser_action import login
+    chrome_options = Options()
+    # chrome_options.add_argument("--disable-notifications")  # disable the allow or disallow notification
+    # # ''' codeBlock: disable automatic control to bypass cloudflare by remove navigator.webdriver flag
+    # #            google chrome only'''
+    # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    # chrome_options.add_experimental_option("useAutomationExtension", False)
+    # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    # options.add_argument("--headless") #run the google chrome without the GUI
+    # create a variable that will represent the chrome driver
+    driver = webdriver.Chrome(executable_path=r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\chromedriver.exe",
+                              options=chrome_options)
+    # login
+    login(driver, "conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
+    # scrape_stock_data()
+    url_to_scrape = "https://tradevsa.com/m/screener/eps"
+    rows_xpath_to_scrape = '''//*[@id="screenerTable"]/tbody/tr'''
+    scrape_stock_data_general(driver, url_to_scrape, rows_xpath_to_scrape, next_page_xpath=None)
+    sleep(20)  # pause program for 20 sec
+    driver.close()
+
 
 """ real time data scrape to database """
 def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None):
@@ -105,24 +127,29 @@ def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next
                 "{} {} {} {} {}  {} {} {} {} {} ".format(eps_date, ticker, stock_code, company_name, st_trend_per, lt_trend_per,
                                                                    price, volume,turnover,industry
                                                                    ))
+def testing_scrape_button():
+    print("this function scrape data from website to database")
 
+def testing_scrape_return():
+    return 10
 
-from browser_action import login
-chrome_options = Options()
-# chrome_options.add_argument("--disable-notifications")  # disable the allow or disallow notification
-# # ''' codeBlock: disable automatic control to bypass cloudflare by remove navigator.webdriver flag
-# #            google chrome only'''
-# chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-# chrome_options.add_experimental_option("useAutomationExtension", False)
-# chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    #options.add_argument("--headless") #run the google chrome without the GUI
-    #create a variable that will represent the chrome driver
-driver = webdriver.Chrome(executable_path=r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\chromedriver.exe", options=chrome_options)
-#login
-login(driver,"conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
-#scrape_stock_data()
-url_to_scrape = "https://tradevsa.com/m/screener/eps"
-rows_xpath_to_scrape = '''//*[@id="screenerTable"]/tbody/tr'''
-scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None)
-sleep(20) #pause program for 20 sec
-driver.close()
+#
+# from browser_action import login
+# chrome_options = Options()
+# # chrome_options.add_argument("--disable-notifications")  # disable the allow or disallow notification
+# # # ''' codeBlock: disable automatic control to bypass cloudflare by remove navigator.webdriver flag
+# # #            google chrome only'''
+# # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+# # chrome_options.add_experimental_option("useAutomationExtension", False)
+# # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+#     #options.add_argument("--headless") #run the google chrome without the GUI
+#     #create a variable that will represent the chrome driver
+# driver = webdriver.Chrome(executable_path=r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\chromedriver.exe", options=chrome_options)
+# #login
+# login(driver,"conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
+# #scrape_stock_data()
+# url_to_scrape = "https://tradevsa.com/m/screener/eps"
+# rows_xpath_to_scrape = '''//*[@id="screenerTable"]/tbody/tr'''
+# scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None)
+# sleep(20) #pause program for 20 sec
+# driver.close()

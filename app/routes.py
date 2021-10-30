@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app
 from app.forms import LoginForm
 from app.forms import RegisterForm
@@ -55,6 +55,19 @@ def register():
             db.insert_account_data(username_from_html,password_from_html, email_from_html,"user", contact_num_from_html )
             return render_template("register.html" , form = register_form)
     return render_template("register.html" , form = register_form)
+
+@app.route("/dashboard", methods=["GET","POST"])
+def scrape_button():
+    if request.method =="POST":
+        print(request.form.get("testing_scrape_button"))
+        if request.form.get("testing_scrape_button") =="scrape":
+            from db_updater import wraper_for_scraping
+            wraper_for_scraping()
+
+            return render_template("dashboard.html")
+    elif request.method =="GET":
+        return render_template("dashboard.html")
+
 
 def user_exist(username, password):
     exist = False #assume user not exist in database
