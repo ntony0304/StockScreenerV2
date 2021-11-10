@@ -27,6 +27,12 @@ def login():
             return render_template('dashboard.html')
         else:
             print("no user with such name")
+            from database import Database
+            from setting import Setting
+            setting = Setting()
+            db = Database(setting)
+            all_account=db.retrieve_accounts()
+            print("all account: {}".format(all_account))
             return render_template('login.html', form=login_form)
     return render_template('login.html', form=login_form)
 
@@ -34,11 +40,15 @@ def login():
 def register():
     register_form = RegisterForm()
     if (register_form.validate_on_submit()):
-        print(register_form.user.data)
+        print("username from form on frontend: ",register_form.user.data)
         username_from_html = register_form.user.data
-        print(register_form.password.data)
+        print("password from form on frontend: ",register_form.password.data)
         password_from_html = register_form.password.data
+        print("password from form on frontend: ", register_form.confirm.data)
         confirm_from_html = register_form.confirm.data
+        if password_from_html != confirm_from_html: #password and confirm password not match
+            print("going back to registration page and show an error message")
+            return render_template("register.html", form=register_form)
         email_from_html = register_form.email.data
         contact_num_from_html = register_form.contact_num.data
         if (user_exist(username_from_html, password_from_html)):
@@ -47,12 +57,14 @@ def register():
             return render_template('register.html', form=register_form)
         else:
             print("create user in the database")
+            #from database import Database
             from database import Database
-            from config import Setting
+            from setting import Setting
             setting = Setting()
             db = Database(setting)
             #ionsert new user account
-            db.insert_account_data(username_from_html,password_from_html, email_from_html,"user", contact_num_from_html )
+            db.insert_account_data(username_from_html,password_from_html, email_from_html,"user",
+                                   contact_num_from_html )
             return render_template("register.html" , form = register_form)
     return render_template("register.html" , form = register_form)
 
@@ -63,16 +75,21 @@ def scrape_button():
         if request.form.get("testing_scrape_button") =="scrape":
             from db_updater import wraper_for_scraping
             wraper_for_scraping()
-
             return render_template("dashboard.html")
+        if request.form.get("testing_screener_button") == "screener":
+            import stock_screener
+            stock_screener.screener()
+            return render_template("dashboard.html")
+
     elif request.method =="GET":
         return render_template("dashboard.html")
+
 
 
 def user_exist(username, password):
     exist = False #assume user not exist in database
     from database import Database
-    from config import Setting
+    from setting import Setting
     setting = Setting()
     db = Database(setting)
     #codes to extract the user information from database

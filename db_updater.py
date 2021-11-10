@@ -1,8 +1,12 @@
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from database import Database
+from setting import Setting
 
 """ real time data scrape to database """
+setting = Setting()
+db = Database(setting)
 def scrape_stock_data():
 
     #create option variable to hold setting for google chrome using Class Options
@@ -81,26 +85,32 @@ def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next
         next_page_btn = driver.find_element_by_xpath(next_page_xpath)
         while next_page_btn != None:
             ''' scrape the data of the page '''
-            rows = driver.find_elements_by_xpath('''//tbody/tr[contains(@id,'sic_pricesTable')]''') #get list of rows from the page
+                                                   #//*[@id="screenerTable"]/tbody/tr[1]
+            rows = driver.find_elements_by_xpath('''//tbody/tr[contains(@role,'row')]''') #get list of rows from the page
             for row in rows: #Iterating over row by row
                 webelement_columns = row.find_elements_by_xpath("./td")
+                code = webelement_columns[1].text
                 name = webelement_columns[2].text
-                rem = webelement_columns[3].text
-                last_done = webelement_columns[4].text
-                change = webelement_columns[5].text
-                percent_change = webelement_columns[6].text
-                volume = webelement_columns[7].text
-                buy_volum = webelement_columns[8].text
-                buy = webelement_columns[9].text
-                sell = webelement_columns[10].text
-                sell_volume = webelement_columns[11].text
-                high = webelement_columns[12].text
-                low = webelement_columns[13].text
-                blot = webelement_columns[14].text
-                      #2   3  4  5 6   7  8   9  10 11 12 13 14
-                print("{} {} {} {} {}  {} {} {} {} {} {} {}   {}".format( name, rem, last_done,change,percent_change,volume,buy_volum,buy,
-                                                                     sell, sell_volume,high,low,blot))
+                st_trend_per = webelement_columns[3].text
+                lt_trend_per = webelement_columns[4].text
+                price = webelement_columns[5].text
+                volume = webelement_columns[6].text
+                turn_over = webelement_columns[7].text
+                industry = webelement_columns[8].text
+                qtrly_eps_date = webelement_columns[9].text
+                      #2   3  4  5 6   7  8   9   #Code	Name	ST Trend %	LT Trend %	Price	Volume	Turnover	Main Industry	Qtrly EPS Date
+                print("code: {}\nname: {}\nst_trend_per: {}\n lt_trend_per: {} \nprice{}\n volume {}\n turn_over: {}\n "
+                      "industry {}\n qtrly_eps_date :{}\n".format( code, name,
+                                                                   st_trend_per,
+                                                                   lt_trend_per,price,
+                                                                      volume,turn_over,
+                                                                   industry,qtrly_eps_date))
                 #import to database . in database you have function to import corect data to correct label
+                db.insert_stock_data(code, name,
+                                       st_trend_per,
+                                       lt_trend_per,price,
+                                          volume,turn_over,
+                                       industry,qtrly_eps_date)
 
     else: #the page doesn't have next page btn
         #just scrape 1 page
@@ -109,24 +119,21 @@ def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next
             #QTRLY EPS DATE |	TICKER	|STOCK CODE |	NAME |	ST TREND %	| LT TREND %
             #PRICE	|VOLUME|	TURNOVER	|MAIN INDUSTRY
             webelement_columns = row.find_elements_by_xpath("./td") #13 item
-            eps_date = webelement_columns[0].text
-
-            ticker_element = webelement_columns[1] #access the ticker web element
-            ticker = ticker_element.find_element_by_xpath("./a").text #access the a tag inside the td and extract the text
-
-            stock_code = webelement_columns[2].text
-            company_name = webelement_columns[3].text
-            st_trend_per = webelement_columns[4].text
-            lt_trend_per = webelement_columns[5].text
-            price = webelement_columns[6].text
-            volume = webelement_columns[7].text
-            turnover = webelement_columns[8].text
-            industry = webelement_columns[9].text
+            code = webelement_columns[1].text
+            name = webelement_columns[2].text
+            st_trend_per = webelement_columns[3].text
+            lt_trend_per = webelement_columns[4].text
+            price = webelement_columns[5].text
+            volume = webelement_columns[6].text
+            turn_over = webelement_columns[7].text
+            industry = webelement_columns[8].text
+            qtrly_eps_date = webelement_columns[9].text
             #    1  2  3  4   5   6  7  8  9  10
-            print(
-                "{} {} {} {} {}  {} {} {} {} {} ".format(eps_date, ticker, stock_code, company_name, st_trend_per, lt_trend_per,
-                                                                   price, volume,turnover,industry
-                                                                   ))
+            print("code: {}\nname: {}\nst_trend_per: {}\n lt_trend_per: {} \nprice{}\n volume {}\n turn_over: {}\n "
+                  "industry{}\n qtrly_eps_date :{}\n".format(code, name, st_trend_per,
+                                                             lt_trend_per, price,
+                                                             volume, turn_over, industry,
+                                                             qtrly_eps_date))
 def testing_scrape_button():
     print("this function scrape data from website to database")
 

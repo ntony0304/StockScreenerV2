@@ -2,12 +2,12 @@
 import sqlite3
 import traceback
 import os
-
+import logging
 class Database():
     def __init__(self, setting):
         self.db_setting = setting # copy all the attributes inside setting and assign to db_setting
         self.connection = sqlite3.connect(self.db_setting.database_file_location)
-
+        self.create_account_table()
 
     def create_account_table(self):
         cur = self.connection.cursor()
@@ -52,7 +52,7 @@ class Database():
                 conn.commit()
             except:
                 err = traceback.format_exc()
-                print()
+                print(err)
 
         cur.close()
         conn.close()
@@ -110,7 +110,8 @@ class Database():
         cur = self.connection .cursor()
         try:
             cur.execute('''CREATE TABLE stocks (
-            stock TEXT, date DATE,	open REAL,	high REAL,	low REAL,	close REAL, volume INT)''')#create table
+            code TEXT, name TEXT,	st_trend_per REAL,	lt_trend_per REAL,	price REAL,	volume INT, turn_over INT, 
+            industry TEXT,  qtrly_eps_date DATE )''')#create table
             #Stock*',               'Open',     'High',     'Low',     'Last*',      Vol*
             self.connection.commit() #apply the changes to the database
             self.connection.close()
@@ -120,17 +121,26 @@ class Database():
         self.connection = sqlite3.connect(self.db_setting.database_file_location)
         return  self.connection
 
-    def insert_stock_data(self, stock, date, open, high, low, close, volume):
+    def insert_stock_data(self, code, name,  st_trend_per,
+                               lt_trend_per,price,
+                                  volume,turn_over,
+                               industry,qtrly_eps_date):
         conn = self.database_connection()
         cur = conn.cursor()
-        query = '''INSERT INTO stocks VALUES ( ? , ?, ?, ?, ?, ?, ? ) '''
+        query = '''INSERT INTO stocks VALUES ( ? , ?, ?, ?, ?, ?, ? ,?, ?) '''
 
         try:
-            cur.execute(query,(stock,date,open,high,low,close,volume))
+            cur.execute(query,(code, name,
+                           st_trend_per,
+                           lt_trend_per,price,
+                              volume,turn_over,
+                           industry,qtrly_eps_date))
             conn.commit()
+            logging.debug("inserting data %s"%code)
         except:
             err = traceback.format_exc()
-            print()
+            print("error insert stock to database " ,err)
+        logging.info("inserting data completed")
         cur.close()
         conn.close()
 
@@ -163,7 +173,7 @@ class Database():
         conn.close()
         return row_data
 
-    def retrieve_rows(self):
+    def retrieve_rows_from_stock_table(self):
         """return row in list"""
         query = '''SELECT * FROM stocks'''
         conn = self.database_connection()
@@ -172,17 +182,18 @@ class Database():
         try:
             cur.execute(query)
         except:
-            pass
-        return cur.fetchmany(amount)
-# #
-# from config import Setting
+            print(traceback.format_exc())
+        return cur.fetchall()
+#
+# from setting import Setting
 # setting = Setting()
 # db = Database(setting)
-# db.create_account_table()
-# db.create_stock_table()
+# #db.create_account_table()
+# #db.create_stock_table()
 #
 # #insert account data for testing
 # #db.insert_account_data("acc1", "acc1Pass", "acc1@gmail.com","user", 1234556)
 # #db.edit_account_type("acc1","premium")
 # all_account = db.retrieve_accounts()
-# print(all_account)
+# all_stock=db.retrieve_rows_from_stock_table()
+# print(all_stock)
