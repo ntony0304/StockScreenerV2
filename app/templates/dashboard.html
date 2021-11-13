@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <h1 >this is dashboard here</h1>
+    <p>{{user[0]}}</p>
     <div class ="container">
         <form action ="/dashboard" method ="post">
             <input type="submit" value="scrape" name="testing_scrape_button">

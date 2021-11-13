@@ -8,6 +8,12 @@ class Database():
         self.db_setting = setting # copy all the attributes inside setting and assign to db_setting
         self.connection = sqlite3.connect(self.db_setting.database_file_location)
         self.create_account_table()
+        logging.basicConfig(
+            filename='database.log',
+            level=logging.DEBUG,
+            format='[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
+            datefmt='%H:%M:%S'
+        )
 
     def create_account_table(self):
         cur = self.connection.cursor()
@@ -57,7 +63,24 @@ class Database():
         cur.close()
         conn.close()
 
-
+    def retrieve_account_by_user_name(self, username):
+        conn = self.database_connection()
+        cur = conn.cursor()
+        query = '''SELECT * FROM account WHERE username =?'''
+        account_found = None
+        logging.info("account account_found={}".format(account_found))
+        try:
+            cur.execute(query, (username,))
+            logging.info("executed successfully")
+            account_found = cur.fetchone()
+            logging.info("account account_found={}".format(account_found))
+        except:
+            err = traceback.format_exc()
+            logging.error("error execute sql = {}".format(traceback.format_exc()))
+        cur.close()
+        conn.close()
+        logging.info("account info={}".format(account_found))
+        return account_found
 
     def retrieve_accounts(self):
         conn = self.database_connection()
@@ -179,11 +202,13 @@ class Database():
         conn = self.database_connection()
 
         cur = conn.cursor()
+        row = None
         try:
             cur.execute(query)
+            row = cur.fetchall()
         except:
             print(traceback.format_exc())
-        return cur.fetchall()
+        return row
 #
 # from setting import Setting
 # setting = Setting()

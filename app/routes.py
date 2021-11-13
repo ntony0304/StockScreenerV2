@@ -4,6 +4,8 @@ from app.forms import LoginForm
 from app.forms import RegisterForm
 
 
+
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -12,27 +14,26 @@ def index():
 # @app.route('/bootstrap')
 # def bootstrap_ex():
 #     return render_template("bootstrapex.html")
-
+@app.route('/signin',methods=['GET','POST'])
+def signin():
+    return render_template("signin_ex.html")
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    from database import Database
+    from setting import Setting
+    setting = Setting()
+    db = Database(setting)
+
     login_form = LoginForm()
     if (login_form.validate_on_submit()):
-        print(login_form.user.data)
         username_from_html =login_form.user.data
-        print(login_form.password.data)
         password_from_html = login_form.password.data
         if (user_exist(username_from_html, password_from_html)):
-            print("user found")
+            user=db.retrieve_account_by_user_name(username_from_html)
             #send the user to /dashboard
-            return render_template('dashboard.html')
+            return render_template('dashboard.html', user=user)
         else:
-            print("no user with such name")
-            from database import Database
-            from setting import Setting
-            setting = Setting()
-            db = Database(setting)
             all_account=db.retrieve_accounts()
-            print("all account: {}".format(all_account))
             return render_template('login.html', form=login_form)
     return render_template('login.html', form=login_form)
 
@@ -40,23 +41,17 @@ def login():
 def register():
     register_form = RegisterForm()
     if (register_form.validate_on_submit()):
-        print("username from form on frontend: ",register_form.user.data)
         username_from_html = register_form.user.data
-        print("password from form on frontend: ",register_form.password.data)
         password_from_html = register_form.password.data
-        print("password from form on frontend: ", register_form.confirm.data)
         confirm_from_html = register_form.confirm.data
         if password_from_html != confirm_from_html: #password and confirm password not match
-            print("going back to registration page and show an error message")
             return render_template("register.html", form=register_form)
         email_from_html = register_form.email.data
         contact_num_from_html = register_form.contact_num.data
         if (user_exist(username_from_html, password_from_html)):
-            print("user exist in database")
             # send the user to /dashboard
             return render_template('register.html', form=register_form)
         else:
-            print("create user in the database")
             #from database import Database
             from database import Database
             from setting import Setting
@@ -68,7 +63,16 @@ def register():
             return render_template("register.html" , form = register_form)
     return render_template("register.html" , form = register_form)
 
+
+@app.route('/dashboard_ex',methods=['GET','POST'])
+def dashboard_ex():
+    if request.method =="GET":
+        return render_template("dashboard_ex.html")
 @app.route("/dashboard", methods=["GET","POST"])
+def dashboard():
+    if request.method =="GET":
+        return render_template("dashboard.html")
+
 def scrape_button():
     if request.method =="POST":
         print(request.form.get("testing_scrape_button"))
