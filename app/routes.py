@@ -2,9 +2,17 @@ from flask import render_template, request
 from app import app
 from app.forms import LoginForm
 from app.forms import RegisterForm
+import logging
+logging.basicConfig(
+    handlers=[logging.FileHandler('error_log.log', 'w', 'utf-8')],
+    format='%(levelname)s: %(message)s',
+    datefmt='%m-%d %H:%M',
+    level=logging.INFO #CRITICAL ERROR WARNING  INFO    DEBUG    NOTSET
+)
+logging.info("testing ")
 
-
-
+global user
+user=None
 
 @app.route('/')
 @app.route('/index')
@@ -29,6 +37,7 @@ def login():
         username_from_html =login_form.user.data
         password_from_html = login_form.password.data
         if (user_exist(username_from_html, password_from_html)):
+            global user
             user=db.retrieve_account_by_user_name(username_from_html)
             #send the user to /dashboard
             return render_template('dashboard.html', user=user)
@@ -71,23 +80,22 @@ def dashboard_ex():
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard():
     if request.method =="GET":
-        return render_template("dashboard.html")
+        return render_template("dashboard.html", user=user)
 
-def scrape_button():
-    if request.method =="POST":
-        print(request.form.get("testing_scrape_button"))
-        if request.form.get("testing_scrape_button") =="scrape":
+    if request.method == "POST":
+        if request.form.get("testing_scrape_button") == "scrape":
+            logging.debug("user_data = {}".format(user))
             from db_updater import wraper_for_scraping
             wraper_for_scraping()
-            return render_template("dashboard.html")
+            return render_template("dashboard.html", user=user)
+        if request.form.get("testing_scrape_button_stock_calendar") == "scrape_stock_calendar":
+            from db_updater import wraper_for_scraping_stock_calendar
+            wraper_for_scraping_stock_calendar()
+            return render_template("dashboard.html", user=user)
         if request.form.get("testing_screener_button") == "screener":
             import stock_screener
             stock_screener.screener()
-            return render_template("dashboard.html")
-
-    elif request.method =="GET":
-        return render_template("dashboard.html")
-
+            return render_template("dashboard.html", user=user)
 
 
 def user_exist(username, password):

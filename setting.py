@@ -4,7 +4,7 @@ import os.path
 
 class Setting():
     def __init__(self):
-        self.database_file_location = r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\app.db"
+        self.database_file_location = r"C:\Users\Administrator\PycharmProjects\StockScreenerV2\app.db"
 
 
 

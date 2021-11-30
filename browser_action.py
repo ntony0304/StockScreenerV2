@@ -22,8 +22,8 @@ def send_text(browser, xpath, text):
     input_box = browser.find_element_by_xpath(xpath)
     input_box.send_keys(text)
 
-def java_script_click(browser_driver, login_btn_xpath):
-    button = browser_driver.find_element_by_xpath(login_btn_xpath) #find the sign in button using its xpath
+def java_script_click(browser_driver, btn_xpath):
+    button = browser_driver.find_element_by_xpath(btn_xpath) #find the sign in button using its xpath
     browser_driver.execute_script("arguments[0].click();", button) #click that button
 #
 # from time import sleep

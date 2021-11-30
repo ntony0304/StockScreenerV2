@@ -1,8 +1,11 @@
+import random
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from database import Database
 from setting import Setting
+import browser_action as br_act
+import re
 
 """ real time data scrape to database """
 setting = Setting()
@@ -13,7 +16,7 @@ def scrape_stock_data():
     options = Options()
     #options.add_argument("--headless") #run the google chrome without the GUI
     #create a variable that will represent the chrome driver
-    with webdriver.Chrome(executable_path=r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\chromedriver.exe", options=options) as driver:
+    with webdriver.Chrome(executable_path=r"C:\Users\Administrator\PycharmProjects\StockScreenerV2\chromedriver.exe", options=options) as driver:
         #driver.maximize_window()
         #open the website
         driver.get("https://www.shareinvestor.com/prices/stock_prices.html")
@@ -60,7 +63,7 @@ def wraper_for_scraping():
     # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     # options.add_argument("--headless") #run the google chrome without the GUI
     # create a variable that will represent the chrome driver
-    driver = webdriver.Chrome(executable_path=r"C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\chromedriver.exe",
+    driver = webdriver.Chrome(executable_path=r"C:\Users\Administrator\PycharmProjects\StockScreenerV2\chromedriver.exe",
                               options=chrome_options)
     # login
     login(driver, "conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
@@ -71,6 +74,68 @@ def wraper_for_scraping():
     sleep(20)  # pause program for 20 sec
     driver.close()
 
+def wraper_for_scraping_stock_calendar(): #for url https://www.investingnote.com/stock_events/calendar?source=&country=my
+    from browser_action import login
+    chrome_options = Options()
+    # chrome_options.add_argument("--disable-notifications")  # disable the allow or disallow notification
+    # # ''' codeBlock: disable automatic control to bypass cloudflare by remove navigator.webdriver flag
+    # #            google chrome only'''
+    # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    # chrome_options.add_experimental_option("useAutomationExtension", False)
+    # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    # options.add_argument("--headless") #run the google chrome without the GUI
+    # create a variable that will represent the chrome driver
+    driver = webdriver.Chrome(executable_path=r"C:\Users\Administrator\PycharmProjects\StockScreenerV2\chromedriver.exe",
+                              options=chrome_options)
+    # login
+    login(driver, "conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
+    # scrape_stock_data()
+    url_to_scrape = "https://www.investingnote.com/stock_events/calendar?source=&country=my"
+    rows_xpath_to_scrape = '''//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div'''
+    scrape_stock_calendar(driver, url_to_scrape, rows_xpath_to_scrape)
+    sleep(20)  # pause program for 20 sec
+    driver.close()
+def scrape_stock_calendar(driver, url_to_scrape, rows_xpath_to_scrape, next_page_xpath=None):
+    driver.get(url_to_scrape)
+    #rows = driver.find_elements_by_xpath(rows_xpath_to_scrape)  # get list of rows from the page
+    # for row in rows:  # Iterating over row by row
+    #     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div
+    #     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr[1]
+    #     sub_rows = row.find_elements_by_xpath("./div[2]/table/tbody/tr")
+    #     for sub_row in sub_rows:
+    #         td_columns = sub_row.find_elements_by_xpath("./td") # should get 7 columns (mon- sunday)
+    #         '''<td rowspan="13"></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/505667" style="background-color:#FB6107;border-color:#FB6107"><div class="fc-content"> <span class="fc-title">CCB (3Q Result)</span></div></a></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/506091" style="background-color:#FB6107;border-color:#FB6107"><div class="fc-content"> <span class="fc-title">DUFU (3Q Result)</span></div></a></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/502044" style="background-color:#8AC926;border-color:#8AC926"><div class="fc-content"> <span class="fc-title">AXREIT (Entitlement)</span></div></a></td><td rowspan="13"></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/502477" style="background-color:#8AC926;border-color:#8AC926"><div class="fc-content"> <span class="fc-title">BSLCORP (Entitlement)</span></div></a></td><td rowspan="13"></td>'''
+    #         for day in td_columns:
+    #             try:
+    #                 stock_data = day.find_element_by_xpath("./a/div/span") #1 item of stock data '''<span class="fc-title">CCB (3Q Result)</span>'''
+    #                 stock_data_text = stock_data.text
+    #                 if stock_data_text: #if stock_data_text is not None
+    #                     splited= stock_data_text.split(" ")
+    #                     print(splited)
+    #                     first_column = splited[0] #'CCB'
+    #                     second_column = " ".join(splited[1:])#3Q Result
+    #                     print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
+    #                     #PMHLDG (AGM)
+    #                     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div/div[2]/table/tbody/tr
+    #             except:
+    #                 pass
+    #
+
+    #//*[@class='fc-title']
+    count=0
+    title_elements = driver.find_elements_by_xpath("//*[@class='fc-title']") #list of 1101 WebElements
+    print("element count", len(title_elements))
+    for element in title_elements:
+        stock_data_text = element.text
+        if stock_data_text: #if stock_data_text is not None
+            splited= stock_data_text.split(" ")
+            print(splited)
+            first_column = splited[0] #'CCB'
+            second_column = " ".join(splited[1:])#3Q Result
+            print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
+            count+=1
+            print("count=",count)
+            sleep(random.uniform(0.5,1))
 
 """ real time data scrape to database """
 def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None):
