@@ -1,4 +1,5 @@
 import random
+import traceback
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -6,6 +7,9 @@ from database import Database
 from setting import Setting
 import browser_action as br_act
 import re
+
+import logging
+
 
 """ real time data scrape to database """
 setting = Setting()
@@ -85,10 +89,11 @@ def wraper_for_scraping_stock_calendar(): #for url https://www.investingnote.com
     # chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     # options.add_argument("--headless") #run the google chrome without the GUI
     # create a variable that will represent the chrome driver
+
     driver = webdriver.Chrome(executable_path=r"C:\Users\Administrator\PycharmProjects\StockScreenerV2\chromedriver.exe",
                               options=chrome_options)
     # login
-    login(driver, "conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
+    # login(driver, "conceptnextinfo2@gmail.com", 123456, '''//*[@id="login_form"]/div[2]/div[1]/button''')
     # scrape_stock_data()
     url_to_scrape = "https://www.investingnote.com/stock_events/calendar?source=&country=my"
     rows_xpath_to_scrape = '''//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div'''
@@ -122,20 +127,29 @@ def scrape_stock_calendar(driver, url_to_scrape, rows_xpath_to_scrape, next_page
     #
 
     #//*[@class='fc-title']
+
+
     count=0
     title_elements = driver.find_elements_by_xpath("//*[@class='fc-title']") #list of 1101 WebElements
     print("element count", len(title_elements))
     for element in title_elements:
+        count+=1
         stock_data_text = element.text
+        if stock_data_text is None or stock_data_text=='':
+            stock_data_text = element.get_attribute("textContent")
         if stock_data_text: #if stock_data_text is not None
-            splited= stock_data_text.split(" ")
-            print(splited)
-            first_column = splited[0] #'CCB'
-            second_column = " ".join(splited[1:])#3Q Result
-            print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
-            count+=1
-            print("count=",count)
-            sleep(random.uniform(0.5,1))
+            try:
+                splited= stock_data_text.split(" ")
+                print(splited)
+                first_column = splited[0] #'CCB'
+                second_column = " ".join(splited[1:])#3Q Result
+                print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
+                print("count=",count)
+                logging.debug("count={} column 1 = {}  \tcolumn 2= {}\n".format(count,first_column, second_column))
+
+            except:
+                logging.info("error {}".format(traceback.format_exc()))
+
 
 """ real time data scrape to database """
 def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None):
