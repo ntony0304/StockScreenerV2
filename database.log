@@ -1,0 +1,241 @@
+[17:18:15] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:18:15] "[37mGET /login HTTP/1.1[0m" 200 -
+[17:18:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[17:18:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=None
+[17:18:18] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:18:18] "[37mPOST /login HTTP/1.1[0m" 200 -
+[17:20:10] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:20:10] "[37mGET /login HTTP/1.1[0m" 200 -
+[17:20:12] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[17:20:12] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:79} ERROR - error execute sql = Traceback (most recent call last):
+  File "C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py", line 73, in retrieve_account_by_user_name
+    cur.execute(query, (username))
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+
+[17:20:12] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=None
+[17:20:12] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:20:12] "[37mPOST /login HTTP/1.1[0m" 200 -
+[17:21:15] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:21:15] "[37mGET /login HTTP/1.1[0m" 200 -
+[17:21:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[17:21:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[17:21:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[17:21:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[17:21:18] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [13/Nov/2021 17:21:18] "[37mPOST /login HTTP/1.1[0m" 200 -
+[19:52:52] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 19:52:52] "[37mGET /login HTTP/1.1[0m" 200 -
+[19:52:59] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[19:52:59] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[19:52:59] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[19:52:59] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[19:52:59] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 19:52:59] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:43:36] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:43:36] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:43:39] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:43:39] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:43:39] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:43:39] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:43:39] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:43:39] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:43:53] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:43:53] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:43:53] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:45:20] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [GET]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\app\routes.py", line 74, in dashboard
+    return render_template("dashboard.html")
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\ProgramData\Anaconda3\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\app\templates\dashboard.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\app\templates\base.html", line 39, in top-level template code
+    {% block content %}{% endblock %}
+  File "C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\app\templates\dashboard.html", line 4, in block "content"
+    <p>{{user[0]}}</p>
+  File "C:\ProgramData\Anaconda3\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'user' is undefined
+[20:45:20] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:45:20] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+[20:48:21] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:48:21] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:48:27] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:48:27] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:48:27] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:48:27] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:48:27] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:48:27] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:48:30] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:48:30] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:48:30] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:50:15] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:50:15] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:50:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:50:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:50:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:50:18] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:50:18] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:50:18] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:50:21] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:50:21] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:50:21] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:50:39] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:50:39] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:50:39] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:56:47] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:56:47] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:56:51] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:56:51] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:56:51] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:56:51] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:56:51] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:56:51] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:56:54] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:56:54] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:56:54] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:57:40] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:57:40] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:57:45] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:57:45] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:57:45] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:57:45] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:57:45] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:57:45] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:57:46] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:57:46] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:57:46] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[20:58:13] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:58:13] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:58:16] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:58:16] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:58:16] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:58:16] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:58:16] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:58:16] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:58:51] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:58:51] "[37mGET /login HTTP/1.1[0m" 200 -
+[20:58:53] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[20:58:53] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[20:58:53] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[20:58:53] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[20:58:53] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:58:53] "[37mPOST /login HTTP/1.1[0m" 200 -
+[20:58:56] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[20:58:56] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 20:58:56] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[21:00:00] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:00:00] "[37mGET /login HTTP/1.1[0m" 200 -
+[21:00:03] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[21:00:03] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[21:00:03] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[21:00:03] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[21:00:03] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:00:03] "[37mPOST /login HTTP/1.1[0m" 200 -
+[21:00:05] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[21:00:05] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:00:05] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[21:01:36] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:01:36] "[37mGET /login HTTP/1.1[0m" 200 -
+[21:01:38] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[21:01:38] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[21:01:38] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[21:01:38] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[21:01:38] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:01:38] "[37mPOST /login HTTP/1.1[0m" 200 -
+[21:01:40] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[21:01:40] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:01:40] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
+[21:03:04] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:03:04] "[37mGET /login HTTP/1.1[0m" 200 -
+[21:03:07] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:71} INFO - account account_found=None
+[21:03:07] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:74} INFO - executed successfully
+[21:03:07] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:76} INFO - account account_found=('acc', '', '', 'user', '')
+[21:03:07] {C:\Users\quang nguyen\PycharmProjects\StockScreenerV2\database.py:82} INFO - account info=('acc', '', '', 'user', '')
+[21:03:07] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:03:07] "[37mPOST /login HTTP/1.1[0m" 200 -
+[21:03:09] {C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py:1891} ERROR - Exception on /dashboard [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\flask\app.py", line 2097, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+[21:03:09] {C:\ProgramData\Anaconda3\lib\site-packages\werkzeug\_internal.py:113} INFO - 127.0.0.1 - - [26/Nov/2021 21:03:09] "[35m[1mPOST /dashboard HTTP/1.1[0m" 500 -
