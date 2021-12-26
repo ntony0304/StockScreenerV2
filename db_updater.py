@@ -102,54 +102,76 @@ def wraper_for_scraping_stock_calendar(): #for url https://www.investingnote.com
     driver.close()
 def scrape_stock_calendar(driver, url_to_scrape, rows_xpath_to_scrape, next_page_xpath=None):
     driver.get(url_to_scrape)
-    #rows = driver.find_elements_by_xpath(rows_xpath_to_scrape)  # get list of rows from the page
-    # for row in rows:  # Iterating over row by row
-    #     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div
-    #     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr[1]
-    #     sub_rows = row.find_elements_by_xpath("./div[2]/table/tbody/tr")
-    #     for sub_row in sub_rows:
-    #         td_columns = sub_row.find_elements_by_xpath("./td") # should get 7 columns (mon- sunday)
-    #         '''<td rowspan="13"></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/505667" style="background-color:#FB6107;border-color:#FB6107"><div class="fc-content"> <span class="fc-title">CCB (3Q Result)</span></div></a></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/506091" style="background-color:#FB6107;border-color:#FB6107"><div class="fc-content"> <span class="fc-title">DUFU (3Q Result)</span></div></a></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/502044" style="background-color:#8AC926;border-color:#8AC926"><div class="fc-content"> <span class="fc-title">AXREIT (Entitlement)</span></div></a></td><td rowspan="13"></td><td class="fc-event-container"><a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end" href="/stock_events/502477" style="background-color:#8AC926;border-color:#8AC926"><div class="fc-content"> <span class="fc-title">BSLCORP (Entitlement)</span></div></a></td><td rowspan="13"></td>'''
-    #         for day in td_columns:
-    #             try:
-    #                 stock_data = day.find_element_by_xpath("./a/div/span") #1 item of stock data '''<span class="fc-title">CCB (3Q Result)</span>'''
-    #                 stock_data_text = stock_data.text
-    #                 if stock_data_text: #if stock_data_text is not None
-    #                     splited= stock_data_text.split(" ")
-    #                     print(splited)
-    #                     first_column = splited[0] #'CCB'
-    #                     second_column = " ".join(splited[1:])#3Q Result
-    #                     print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
-    #                     #PMHLDG (AGM)
-    #                     #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div/div[2]/table/tbody/tr
-    #             except:
-    #                 pass
+
+    # count=0
+    # title_elements = driver.find_elements_by_xpath("//*[@class='fc-title']") #list of 1101 WebElements
+    # print("element count", len(title_elements))
+    # for element in title_elements:
+    #     count+=1
+    #     stock_data_text = element.text
+    #     if stock_data_text is None or stock_data_text=='':
+    #         stock_data_text = element.get_attribute("textContent")
+    #     if stock_data_text: #if stock_data_text is not None
+    #         try:
+    #             splited= stock_data_text.split(" ")
+    #             print(splited)
+    #             first_column = splited[0] #'CCB'
+    #             second_column = " ".join(splited[1:])#3Q Result
+    #             print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
+    #             print("count=",count)
+    #             logging.debug("count={} column 1 = {}  \tcolumn 2= {}\n".format(count,first_column, second_column))
     #
+    #         except:
+    #             logging.info("error {}".format(traceback.format_exc()))
+    #stock of each day
+    list_monday = []
+    list_tuesday = []
+    list_wednesday = []
+    list_thursday = []
+    list_friday = []
+    row_1 =[]
+    row_2 = []
+    row_3 =[]
+    row_4 =[]
+    #xpath for each week //*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div
+    #xpath for each row in one week //*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr
 
-    #//*[@class='fc-title']
+    week_elements = driver.find_elements_by_xpath('//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div')
+    for week_ele in week_elements: #iterating the each week
+        rows_of_week = week_ele.find_elements_by_xpath('./div[2]/table/tbody/tr')
+        for row_ele in rows_of_week:  #iterating each row of a week
+            #xpath for 7 days //*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr[1]/td
+            #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr[1]/td
+            #//*[@id="events-calendar"]/div[2]/div/table/tbody/tr/td/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/a/div/span
+            day_elements = row_ele.find_elements_by_xpath("./td")
 
-
-    count=0
-    title_elements = driver.find_elements_by_xpath("//*[@class='fc-title']") #list of 1101 WebElements
-    print("element count", len(title_elements))
-    for element in title_elements:
-        count+=1
-        stock_data_text = element.text
-        if stock_data_text is None or stock_data_text=='':
-            stock_data_text = element.get_attribute("textContent")
-        if stock_data_text: #if stock_data_text is not None
+            logging.info(f"date element {len(day_elements)}")
             try:
-                splited= stock_data_text.split(" ")
-                print(splited)
-                first_column = splited[0] #'CCB'
-                second_column = " ".join(splited[1:])#3Q Result
-                print("column 1 = {}  \tcolumn 2= {}".format(first_column,second_column))
-                print("count=",count)
-                logging.debug("count={} column 1 = {}  \tcolumn 2= {}\n".format(count,first_column, second_column))
-
+                list_monday.append(day_elements[0].find_element_by_xpath("./a/div/span").get_attribute("textContent"))
             except:
-                logging.info("error {}".format(traceback.format_exc()))
-
+                pass
+            try:
+                list_tuesday.append(day_elements[1].find_element_by_xpath("./a/div/span").get_attribute("textContent"))
+            except:
+                pass
+            try:
+                list_wednesday.append(day_elements[2].find_element_by_xpath("./a/div/span").get_attribute("textContent"))
+            except:
+                pass
+            try:
+                list_thursday.append(day_elements[3].find_element_by_xpath("./a/div/span").get_attribute("textContent"))
+            except:
+                pass
+            try:
+                list_friday.append(day_elements[4].find_element_by_xpath("./a/div/span").get_attribute("textContent"))
+            except:
+                pass
+        logging.info(list_monday)
+        logging.info(list_tuesday)
+        logging.info(list_wednesday)
+        logging.info(list_thursday)
+        logging.info(list_friday)
+        break #finish week 1
 
 """ real time data scrape to database """
 def scrape_stock_data_general(driver, url_to_scrape , rows_xpath_to_scrape, next_page_xpath=None):
